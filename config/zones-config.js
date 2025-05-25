@@ -1,9 +1,23 @@
-// Configuration des zones et leurs données
+// config/zones-config.js - Version corrigée avec votre URL Grafana
+
+const GRAFANA_CONFIG = {
+    baseUrl: 'https://nellp12321.grafana.net', // Votre URL Grafana Cloud
+    orgId: 1,
+    theme: 'dark', // light ou dark
+    refresh: '5s',
+};
+
+// Configuration des zones avec votre URL Grafana
 const ZONES_CONFIG = {
     moule1: {
         title: 'Zone Moules 1',
         alerts: [],
-        grafanaUrl: 'https://your-grafana-instance.com/d/dashboard1', // À remplacer
+        // ✅ URL corrigée pour l'embed - Mode kiosk pour supprimer les menus
+        grafanaUrl: 'https://nellp12321.grafana.net/public-dashboards/47725e36bda547b3bc55350b7eda766a',
+        
+        // Alternative: Mode solo pour un panel spécifique
+        grafanaSoloUrl: 'https://nellp12321.grafana.net/public-dashboards/47725e36bda547b3bc55350b7eda766a',
+        
         metrics: {
             rendement: '92%',
             pieces: '1,456',
@@ -16,7 +30,8 @@ const ZONES_CONFIG = {
     moule2: {
         title: 'Zone Moules 2',
         alerts: ['Température élevée détectée', 'Maintenance préventive requise'],
-        grafanaUrl: 'https://your-grafana-instance.com/d/dashboard2', // À remplacer
+        // Pour l'instant, on garde le mock pour les autres zones
+        grafanaUrl: null,
         metrics: {
             rendement: '78%',
             pieces: '987',
@@ -29,7 +44,7 @@ const ZONES_CONFIG = {
     moule3: {
         title: 'Zone Moules 3',
         alerts: ['ARRÊT MACHINE - Intervention requise', 'Défaut de qualité critique'],
-        grafanaUrl: 'https://your-grafana-instance.com/d/dashboard3', // À remplacer
+        grafanaUrl: null,
         metrics: {
             rendement: '0%',
             pieces: '0',
@@ -42,7 +57,7 @@ const ZONES_CONFIG = {
     retravail: {
         title: 'Zone Retravail',
         alerts: [],
-        grafanaUrl: 'https://your-grafana-instance.com/d/dashboard4', // À remplacer
+        grafanaUrl: null,
         metrics: {
             rendement: '95%',
             pieces: '234',
@@ -55,7 +70,7 @@ const ZONES_CONFIG = {
     emballage: {
         title: 'Zone Emballage',
         alerts: [],
-        grafanaUrl: 'https://your-grafana-instance.com/d/dashboard5', // À remplacer
+        grafanaUrl: null,
         metrics: {
             rendement: '89%',
             pieces: '2,103',
@@ -68,7 +83,7 @@ const ZONES_CONFIG = {
     entrepot: {
         title: 'Entrepôt',
         alerts: [],
-        grafanaUrl: 'https://your-grafana-instance.com/d/dashboard6', // À remplacer
+        grafanaUrl: null,
         metrics: {
             rendement: '94%',
             pieces: '15,678',
@@ -80,10 +95,12 @@ const ZONES_CONFIG = {
     }
 };
 
-// Configuration globale
+// ✅ IMPORTANT: Activer l'intégration Grafana
 const APP_CONFIG = {
-    updateInterval: 30000, // 30 secondes
-    grafanaEmbedded: false, // true pour iframe, false pour mock
-    apiEndpoint: '/api/zones', // Endpoint pour les données temps réel
-    enableNotifications: true
+    updateInterval: 30000,
+    grafanaEmbedded: true, // ✅ DOIT être à true pour voir Grafana
+    grafanaMode: 'newtab', // 'newtab', 'popup', 'iframe' (iframe ne fonctionne pas avec Cloud gratuit)
+    apiEndpoint: '/api/zones',
+    enableNotifications: true,
+    grafanaConfig: GRAFANA_CONFIG
 };
