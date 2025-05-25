@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carte Interactive - Entreprise de Production</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Tableau de Bord Production</h1>
+            <div class="status-bar">
+                <div class="status-item">🏭 Usine Active</div>
+                <div class="status-item">⚡ Production: <span id="global-production">87%</span></div>
+                <div class="status-item">👥 Équipes: <span id="teams-count">3/3</span></div>
+                <div class="status-item">🔧 Maintenance: <span id="maintenance-status">OK</span></div>
+            </div>
+        </div>
+
+        <div class="map-container">
+            <div class="zone zone-moule1" data-zone="moule1">
+                <div class="zone-status status-ok"></div>
+                <div class="zone-icon">🏭</div>
+                <div class="zone-title">Zone Moules 1</div>
+                <div class="zone-description">Production principale<br>Moules A-C</div>
+            </div>
+
+            <div class="zone zone-moule2" data-zone="moule2">
+                <div class="zone-status status-warning"></div>
+                <div class="zone-icon">⚙️</div>
+                <div class="zone-title">Zone Moules 2</div>
+                <div class="zone-description">Production secondaire<br>Moules D-F</div>
+            </div>
+
+            <div class="zone zone-moule3" data-zone="moule3">
+                <div class="zone-status status-error"></div>
+                <div class="zone-icon">🔧</div>
+                <div class="zone-title">Zone Moules 3</div>
+                <div class="zone-description">Production spécialisée<br>Moules G-I</div>
+            </div>
+
+            <div class="zone zone-retravail" data-zone="retravail">
+                <div class="zone-status status-ok"></div>
+                <div class="zone-icon">🔨</div>
+                <div class="zone-title">Retravail</div>
+                <div class="zone-description">Finition et<br>corrections</div>
+            </div>
+
+            <div class="zone zone-emballage" data-zone="emballage">
+                <div class="zone-status status-ok"></div>
+                <div class="zone-icon">📦</div>
+                <div class="zone-title">Emballage</div>
+                <div class="zone-description">Conditionnement<br>et étiquetage</div>
+            </div>
+
+            <div class="zone zone-entrepot" data-zone="entrepot">
+                <div class="zone-status status-ok"></div>
+                <div class="zone-icon">🏬</div>
+                <div class="zone-title">Entrepôt</div>
+                <div class="zone-description">Stockage et<br>expédition</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Popup d'alerte -->
+    <div id="alertPopup" class="alert-popup">
+        <button class="close-btn" onclick="closeAlert()">&times;</button>
+        <h3 id="alertTitle">⚠️ Alerte Détectée</h3>
+        <p id="alertMessage">Message d'alerte</p>
+        <button onclick="openGrafana(getCurrentZone())" class="alert-btn">
+            Voir les Détails
+        </button>
+    </div>
+
+    <!-- Modal Grafana -->
+    <div id="grafanaModal" class="grafana-modal">
+        <div class="grafana-content">
+            <div class="grafana-header">
+                <h3 id="grafanaTitle">Dashboard Grafana</h3>
+                <button class="grafana-close" onclick="closeGrafana()">Fermer</button>
+            </div>
+            <div id="grafanaFrame" class="grafana-iframe">
+                <!-- Mock Dashboard -->
+                <div class="mock-dashboard">
+                    <div class="dashboard-header">
+                        <h2 id="dashboardTitle">Métriques de Production</h2>
+                        <div class="timestamp">Dernière mise à jour: <span id="lastUpdate"></span></div>
+                    </div>
+                    <div class="metrics-grid">
+                        <div class="metric-card">
+                            <div class="metric-value" id="metric1">87%</div>
+                            <div class="metric-label">Rendement</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-value" id="metric2">1,245</div>
+                            <div class="metric-label">Pièces/Heure</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-value" id="metric3">98.2%</div>
+                            <div class="metric-label">Qualité</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-value" id="metric4">2.1%</div>
+                            <div class="metric-label">Défauts</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-value" id="metric5">42°C</div>
+                            <div class="metric-label">Température</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-value" id="metric6">Normal</div>
+                            <div class="metric-label">État Machine</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="config/zones-config.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
